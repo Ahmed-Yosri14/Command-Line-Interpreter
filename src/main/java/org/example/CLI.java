@@ -20,7 +20,10 @@ public class CLI {
         String commandName = parts[0].toLowerCase();
         switch (commandName) {
             case "cd":
-                command = new CdCommand(dir,parts[1]);
+                if (parts.length==1){
+                    command= new PwdCommand(dir);
+                }
+                else command = new CdCommand(dir,parts[1]);
                 break;
             case "ls":
                 command = new LsCommand(dir);

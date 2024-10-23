@@ -17,7 +17,7 @@ public class TouchCommand implements Command{
             File newFile=new File(absolutePath);
             try {
                 if (newFile.createNewFile()) {
-                    System.out.println("File created successfully at: " + newFile.getAbsolutePath());
+                    System.out.println("File created at: " + newFile.getAbsolutePath());
                 }
                 else {
 
