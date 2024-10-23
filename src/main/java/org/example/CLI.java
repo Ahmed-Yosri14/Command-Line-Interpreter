@@ -1,5 +1,5 @@
 package org.example;
-
+import java.io.*;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,7 @@ public class CLI {
     }
 
 
-    public void executeCommand(String input) {
+    public void executeCommand(String input) throws IOException {
         String[] parts = input.split(" ");
         Command command = null;
 
@@ -27,6 +27,9 @@ public class CLI {
                 break;
             case "pwd":
                 command = new PwdCommand(dir);
+                break;
+            case "touch":
+                command = new TouchCommand(dir,parts[1]);
                 break;
             default:
                 if (parts.length==1){
