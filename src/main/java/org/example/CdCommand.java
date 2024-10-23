@@ -13,11 +13,12 @@ public class CdCommand implements Command {
 
     @Override
     public File execute() {
-
+        line.trim();
         String path = "";
         for (int i = 0; i < line.length(); i++){
             path+=line.charAt(i);
             if (line.charAt(i)=='\\'){
+                path.trim();
                 File next = new File(dir,path);
                 if (path.equals("..\\")){
                     next=dir.getParentFile();
@@ -36,6 +37,7 @@ public class CdCommand implements Command {
             }
         }
         if (!path.isEmpty()) {
+            path.trim();
             File next = new File(dir, path);
             if (path.equals( "..")) {
                 next = dir.getParentFile();
