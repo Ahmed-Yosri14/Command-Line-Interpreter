@@ -14,7 +14,7 @@ public class CLI {
 
     public void executeCommand(String input) throws IOException {
         String[] parts = input.split(" ");
-        Command command = null;
+        Command command = null ;
 
 
         String commandName = parts[0].toLowerCase();
