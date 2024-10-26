@@ -42,7 +42,8 @@ public class CLI {
             case "rmdir":
                 command = new RmdirCommand(dir, parts[1]);
                 break;
-
+            case "mv":
+                command=new Mv(dir,parts[1],parts[2] );
             default:
                 if (parts.length==1){
                     command = new CdCommand(dir,parts[0]);
