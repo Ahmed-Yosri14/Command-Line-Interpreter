@@ -22,13 +22,16 @@ public class CLI {
                 if (parts.length==1){
                     command= new PwdCommand(dir);
                 }
-                else command = new CdCommand(dir,parts[1]);
+                else command = new CdCommand(dir,parts);
                 break;
             case "ls":
                 if ( parts.length == 1)
-                    command = new LsCommand(dir);
+                    command = new LsCommand(dir,false);
                 else if (parts[1].equalsIgnoreCase("-r")){
                     command = new LsrCommand(dir);
+                }
+                else if (parts[1].equalsIgnoreCase("-a")){
+                    command = new LsCommand(dir,true);
                 }
                 break;
             case "touch":
@@ -46,7 +49,7 @@ public class CLI {
                 command=new Mv(dir,parts[1],parts[2] );
             default:
                 if (parts.length==1){
-                    command = new CdCommand(dir,parts[0]);
+                    command = new CdCommand(dir,parts);
                 }
                 else {
                     System.out.println("Invalid command");
