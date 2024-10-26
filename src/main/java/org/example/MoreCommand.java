@@ -7,12 +7,14 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class MoreCommand implements Command {
-    private String []args ;
+    private String[] args;
     private File dir;
-    MoreCommand(String []args, File dir){
-        this.args=args;
-        this.dir=dir;
+
+    public MoreCommand(File dir, String[] args) {
+        this.args = args;
+        this.dir = dir;
     }
+
     @Override
     public File execute() throws IOException {
         if (args.length < 2) {
@@ -21,7 +23,7 @@ public class MoreCommand implements Command {
         }
 
         String fileName = args[1];
-        File file = new File(dir.getPath() + "/" + fileName);
+        File file = new File(dir.getPath().trim() + File.separator + fileName);
 
         if (!file.exists() || !file.isFile()) {
             System.out.println("File not found.");
