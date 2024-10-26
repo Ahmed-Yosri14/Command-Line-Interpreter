@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class LsrCommand implements Command{
+class LsrCommand implements Command{
     File dir;
     LsrCommand(File dir){
         this.dir = dir;

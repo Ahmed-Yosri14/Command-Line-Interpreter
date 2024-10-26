@@ -45,9 +45,7 @@ public class CLI {
             case "rmdir":
                 command = new RmdirCommand(dir, parts[1]);
                 break;
-            case "more":
-                command = new MoreCommand(parts,dir);
-                break;
+
             default:
                 if (parts.length==1){
                     command = new CdCommand(dir,parts);
