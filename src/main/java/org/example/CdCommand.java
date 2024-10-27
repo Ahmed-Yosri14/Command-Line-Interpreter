@@ -21,7 +21,7 @@ public class CdCommand implements Command {
         for (int i = 0; i < line.length(); i++){
             path+=line.charAt(i);
             if (line.charAt(i)=='\\'){
-                path.trim();
+                path =path.trim();
                 File next = new File(dir,path);
                 if (path.equals("..\\")){
                     next=dir.getParentFile();
