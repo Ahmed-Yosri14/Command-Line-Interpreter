@@ -40,7 +40,7 @@ public class CLI {
                 command = new PwdCommand(dir);
                 break;
             case "mkdir":
-                command = new MkdirCommand(dir, parts);
+                command = new MkdirCommand(dir, parts[1]);
                 break;
             case "rmdir":
                 command = new RmdirCommand(dir, parts[1]);
@@ -48,15 +48,16 @@ public class CLI {
 
             case "cat":
                 command =new CatCommand(dir,input.substring(4));
+
             case "more":
                 command = new MoreCommand(dir,parts);
                 break;
             case "mv":
-                command = new Mv(dir,parts[1],parts[2]);
+                command=new Mv(dir,parts[1],parts[2]);
                 break;
             case "rm":
-                command = new rmCommand(dir,parts[1]);
-                    break;
+                command=new rmCommand(dir,parts[1]);
+                break;
             default:
                 if (parts.length==1){
                     command = new CdCommand(dir,parts);
