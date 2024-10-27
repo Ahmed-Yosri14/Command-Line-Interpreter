@@ -4,11 +4,14 @@ import java.io.File;
 
 public class CdCommand implements Command {
     private File dir;
-    private String line;
-
-    public CdCommand(File dir, String line) {
+    String line="";
+    public CdCommand(File dir, String [] input) {
         this.dir = dir;
-        this.line = line;
+        if (!input[0].toLowerCase().equals("cd"))this.line+=input[0];
+        for (int i = 1; i < input.length; i++) {
+            this.line+=input[i];
+            this.line+=" ";
+        }
     }
 
     @Override
