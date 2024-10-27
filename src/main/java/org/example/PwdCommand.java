@@ -8,6 +8,9 @@ public class PwdCommand implements Command {
     public PwdCommand(File dir) {
         this.dir = dir;
     }
+    public String Get_output(){
+        return dir.getAbsolutePath();
+    }
 
     @Override
     public File execute() {

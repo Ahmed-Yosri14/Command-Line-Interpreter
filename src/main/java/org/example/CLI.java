@@ -45,13 +45,10 @@ public class CLI {
             case "rmdir":
                 command = new RmdirCommand(dir, parts[1]);
                 break;
-<<<<<<< HEAD
             case "cat":
                 command =new CatCommand(dir,input.substring(4));
-=======
             case "more":
                 command = new MoreCommand(dir,parts);
->>>>>>> 0f1bcdc1f1763441b5fa71c42aeb92c2670e4186
                 break;
             default:
                 if (parts.length==1){
