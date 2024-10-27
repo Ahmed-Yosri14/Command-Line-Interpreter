@@ -40,7 +40,7 @@ public class CdCommand implements Command {
             }
         }
         if (!path.isEmpty()) {
-            path.trim();
+            path = path.trim();
             File next = new File(dir, path);
             if (path.equals( "..")) {
                 next = dir.getParentFile();

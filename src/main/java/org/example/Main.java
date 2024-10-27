@@ -11,7 +11,7 @@ public class Main {
         while (true) {
             System.out.print("> ");
             String input = scanner.nextLine();
-            input =input.trim();
+            input.trim();
             cli.executeCommand(input);
         }
     }

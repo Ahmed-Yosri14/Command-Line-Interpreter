@@ -40,7 +40,7 @@ public class CLI {
                 command = new PwdCommand(dir);
                 break;
             case "mkdir":
-                command = new MkdirCommand(dir, parts[1]);
+                command = new MkdirCommand(dir, parts);
                 break;
             case "rmdir":
                 command = new RmdirCommand(dir, parts[1]);
