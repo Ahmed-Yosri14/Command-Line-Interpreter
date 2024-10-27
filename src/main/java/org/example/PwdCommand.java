@@ -9,7 +9,7 @@ public class PwdCommand implements Command {
         this.dir = dir;
     }
     public String Get_output(){
-        return dir.getAbsolutePath();
+        return dir.getAbsolutePath().trim();
     }
 
     @Override
