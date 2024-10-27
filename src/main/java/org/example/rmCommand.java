@@ -2,7 +2,6 @@ package org.example;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 public class rmCommand implements Command{
     File dir,Targetfile;
@@ -13,7 +12,6 @@ public class rmCommand implements Command{
     }
     private boolean recdeletefile(File temp){
         if (Targetfile.isDirectory()){
-            for(File temp2: Objects.requireNonNull(Targetfile.listFiles())){
             for(File temp2:Targetfile.listFiles()){
                 recdeletefile(temp2);
             }
