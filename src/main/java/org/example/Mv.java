@@ -15,8 +15,13 @@ public class Mv implements Command {
     public File execute() throws IOException {
         if (!source.exists()){
             System.out.println(source+" does not exits");
-        } else if (source.renameTo(target)) {
-            System.out.println("move "+source+" to "+target);
+        }
+        Path targetPath = target.isDirectory() ? target.toPath().resolve(source.getName()) : target.toPath();
+        try {
+            Files.move(source.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Moved " + source + " to " + targetPath);
+        } catch (IOException e) {
+            System.out.println("Failed to move " + source + " to " + targetPath + ": " + e.getMessage());
         }
         return dir;
 
