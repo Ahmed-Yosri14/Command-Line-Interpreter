@@ -25,12 +25,11 @@ public class CLI {
                 return;
             }
 
-            // Execute the command and get output
             if (i < commands.length - 1) {
-                dir = command.execute(); // Update directory state for commands that modify it
-                previousOutput = command.getOutput(); // Get output for the next command
+                dir = command.execute();
+                previousOutput = command.getOutput();
             } else {
-                dir = command.execute(); // Final command execution
+                dir = command.execute();
 
             }
         }

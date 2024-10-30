@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface Command {
     File execute() throws IOException;
-    List<String> getOutput() throws IOException; // Change to List<String>
+    List<String> getOutput() throws IOException;
 }
