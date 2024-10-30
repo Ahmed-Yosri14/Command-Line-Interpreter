@@ -13,12 +13,13 @@ class MkdirCommandTest {
     @Test
     void execute() throws IOException {// mkdir abdo
         File dir = new File (System.getProperty("user.dir"));
-        String newDirectory = "NewDerectory";
+        String newDirectory = "NewDerectsoar/asds";
         String[] input = {"mkdir",newDirectory };
         Command mkdir = new MkdirCommand(dir , input);
         dir = mkdir.execute();
         Command ls = new LsCommand(dir,false);
         List<String> lst =  ls.getOutput();
-        assert(lst.contains(newDirectory));
+        File newDir = new File(newDirectory);
+        assert(newDir.exists() && newDir.isDirectory());
     }
 }
