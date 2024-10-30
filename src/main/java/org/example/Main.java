@@ -12,6 +12,9 @@ public class Main {
             System.out.print("> ");
             String input = scanner.nextLine();
             input =input.trim();
+            if (input.equals("..\\")){
+                input= "cd ..\\";
+            }
             cli.executeCommand(input);
         }
     }
