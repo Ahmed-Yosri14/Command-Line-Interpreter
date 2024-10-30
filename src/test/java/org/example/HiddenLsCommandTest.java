@@ -18,7 +18,7 @@ class HiddenLsCommandTest {
         Command cd = new CdCommand(dir,parts);
         dir = cd.execute();
         LsCommand ls = new LsCommand(dir,true);
-        ArrayList<String> out = ls.Get_Output();
+        ArrayList<String> out = (ArrayList<String>) ls.getOutput();
         String comp = "";
         for (String s : out){
             comp+= s;

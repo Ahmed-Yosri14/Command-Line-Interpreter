@@ -18,7 +18,7 @@ class LsCommandTest {
         Command cd = new CdCommand(dir,parts);
         dir = cd.execute();
         LsCommand ls = new LsCommand(dir,false);
-        ArrayList<String> out = ls.Get_Output();
+        ArrayList<String> out = (ArrayList<String>) ls.getOutput();
         String comp = "";
         for (String s : out){
             comp+= s;

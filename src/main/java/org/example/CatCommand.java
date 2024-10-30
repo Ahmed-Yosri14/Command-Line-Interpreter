@@ -75,7 +75,7 @@ public class CatCommand implements Command{
                 }
             }
             if(greater==doubleGreater){
-                DoubleGreaterCommand obj=new DoubleGreaterCommand(dir,fileName.substring(idx+1),Content,"cat");
+                DoubleGreaterCommand obj=new DoubleGreaterCommand(dir,fileName.substring(idx+2),Content,"cat");
                 obj.execute();
             }
             else{
