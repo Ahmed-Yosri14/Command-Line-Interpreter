@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CatCommand implements Command{
     File dir;
@@ -12,6 +13,28 @@ public class CatCommand implements Command{
     CatCommand(File dir,String fileName){
         this.dir=dir;
         this.fileName=fileName;
+    }
+    public List<String> Get_output(File dir, String fileName) throws IOException {
+        List<String> ret=new ArrayList<>();
+        fileName=fileName.trim();
+        int greater =fileName.indexOf(">");
+        int doubleGreater=fileName.indexOf(">>");
+        String Content="";
+        if(greater==doubleGreater && greater==-1){
+            String []currFiles=fileName.split(" ");
+            for(var i:currFiles){
+                try{
+                    Content= Files.readString(Path.of(dir.getPath()+"\\"+i))+'\n';
+                    ret.add(Content);
+
+                }
+                catch (IOException e){
+                    System.out.println(String.format("cat: %s: No such file or directory\n",i));
+
+                }
+            }
+        }
+        return ret;
     }
     @Override
     public File execute() throws IOException {
