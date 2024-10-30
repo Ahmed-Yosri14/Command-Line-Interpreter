@@ -1,15 +1,12 @@
 package org.example;
-
 import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 class LsrCommandTest {
-
     @Test
     void execute() throws IOException {
         String input = "cd ..\\..\\Level 1";
@@ -18,7 +15,7 @@ class LsrCommandTest {
         Command cd = new CdCommand(dir,parts);
         dir = cd.execute();
         LsrCommand lsr = new LsrCommand(dir);
-        ArrayList<String> out = lsr.Get_Output();
+        List<String> out = lsr.getOutput();
         String comp = "";
         for (String s : out){
             comp+= s;
@@ -26,5 +23,4 @@ class LsrCommandTest {
         }
         assertEquals("Level 2",comp.trim());
     }
-
 }

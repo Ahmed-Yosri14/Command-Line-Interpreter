@@ -7,6 +7,7 @@ import org.testng.Assert;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 public class RmCommandTest {
@@ -22,7 +23,7 @@ public class RmCommandTest {
         RmdirCommand r=new RmdirCommand(dir,input);
         dir=r.execute();
        LsCommand ls = new LsCommand(dir,false);
-        ArrayList<String> out = ls.Get_Output();
+        List<String> out = ls.getOutput();
         assertFalse(out.contains(input));
     }
 }
