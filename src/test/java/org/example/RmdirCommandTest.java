@@ -22,5 +22,6 @@ class RmdirCommandTest {
         Command ls = new LsCommand(dir , false);
         List<String> lst = ls.getOutput();
         assertFalse( lst.contains(newDirectory));
+
     }
 }

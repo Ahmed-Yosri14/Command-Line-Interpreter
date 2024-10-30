@@ -11,7 +11,7 @@ public class Mv implements Command {
     public Mv(File dir,String source,String target){
         this.dir=dir;
         this.source=new File(dir,source);
-        this.target=new File(dir,target);
+        this.target=new File(target);
     }
     @Override
     public File execute() throws IOException {
