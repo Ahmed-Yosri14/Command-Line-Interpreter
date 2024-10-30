@@ -9,6 +9,7 @@ public class Mv implements Command {
    File dir;
     File source,target;
     public Mv(File dir,String source,String target){
+        if (target.charAt(0)!='C')target= dir.getPath().trim()+"\\"+target;
         this.dir=dir;
         this.source=new File(dir,source);
         this.target=new File(target);
@@ -21,7 +22,6 @@ public class Mv implements Command {
         Path targetPath = target.isDirectory() ? target.toPath().resolve(source.getName()) : target.toPath();
         try {
             Files.move(source.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("Moved " + source + " to " + targetPath);
         } catch (IOException e) {
             System.out.println("Failed to move " + source + " to " + targetPath + ": " + e.getMessage());
         }
