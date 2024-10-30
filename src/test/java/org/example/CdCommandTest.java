@@ -18,6 +18,10 @@ class CdCommandTest {
         Command cd = new CdCommand(dir,parts);
         dir= cd.execute();
         PwdCommand pwd = new PwdCommand(dir);
+
         Assert.assertEquals("C:\\Users\\DELL\\Saved Games", pwd.getOutput());
+
+        Assert.assertEquals("C:\\Users\\DELL\\Saved Games", pwd.getOutput().get(0).trim());
+
     }
 }

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +19,9 @@ class LsCommandTest {
         Command cd = new CdCommand(dir,parts);
         dir = cd.execute();
         LsCommand ls = new LsCommand(dir,false);
-        ArrayList<String> out = (ArrayList<String>) ls.getOutput();
+
+        List<String> out = ls.getOutput();
+
         String comp = "";
         for (String s : out){
             comp+= s;
