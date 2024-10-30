@@ -1,7 +1,9 @@
 package org.example;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LsCommand implements Command {
     private File dir;
@@ -11,18 +13,7 @@ public class LsCommand implements Command {
         this.dir = dir;
         this.hidden = hidden;
     }
-    ArrayList<String> Get_Output(){
-        ArrayList<String>ret=new ArrayList<>();
-        File[] files = dir.listFiles();
-        for (File file : files) {
-            if (file.isHidden()) {
-                if (hidden) {
-                    ret.add(file.getName().trim());
-                }
-            }
-            else ret.add(file.getName().trim());}
-        return ret;
-    }
+
 
     @Override
     public File execute() {
@@ -35,5 +26,19 @@ public class LsCommand implements Command {
             }
             else System.out.println(file.getName());}
         return dir;
+    }
+
+    @Override
+    public List<String> getOutput() throws IOException {
+        ArrayList<String>ret=new ArrayList<>();
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if (file.isHidden()) {
+                if (hidden) {
+                    ret.add(file.getName().trim());
+                }
+            }
+            else ret.add(file.getName().trim());}
+        return ret;
     }
 }

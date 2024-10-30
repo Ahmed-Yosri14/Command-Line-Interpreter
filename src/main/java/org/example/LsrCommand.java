@@ -11,8 +11,8 @@ class LsrCommand implements Command{
     LsrCommand(File dir){
         this.dir = dir;
     }
-
-    ArrayList<String> Get_Output(){
+    @Override
+    public List<String> getOutput(){
         ArrayList<String>ret=new ArrayList<>();
         File []files = dir.listFiles();
         if (files != null){

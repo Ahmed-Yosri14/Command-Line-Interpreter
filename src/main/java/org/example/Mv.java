@@ -3,6 +3,8 @@ package org.example;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.List;
+
 public class Mv implements Command {
    File dir;
     File source,target;
@@ -25,5 +27,10 @@ public class Mv implements Command {
         }
         return dir;
 
+    }
+
+    @Override
+    public List<String> getOutput() throws IOException {
+        return List.of();
     }
 }

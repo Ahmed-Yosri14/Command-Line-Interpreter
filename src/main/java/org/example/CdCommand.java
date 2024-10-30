@@ -1,6 +1,9 @@
 package org.example;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CdCommand implements Command {
     private File dir;
@@ -52,5 +55,10 @@ public class CdCommand implements Command {
             }
         }
         return dir;
+    }
+
+    @Override
+    public List<String> getOutput() throws IOException {
+        return new ArrayList<>();
     }
 }

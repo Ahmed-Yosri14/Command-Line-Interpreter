@@ -1,6 +1,8 @@
 package org.example;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 public class MkdirCommand implements Command{
     File dir ;
@@ -25,5 +27,10 @@ public class MkdirCommand implements Command{
             }
         }
         return currentdir;
+    }
+
+    @Override
+    public List<String> getOutput() throws IOException {
+        return List.of();
     }
 }

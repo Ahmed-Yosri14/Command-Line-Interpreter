@@ -1,6 +1,7 @@
 package org.example;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class TouchCommand implements Command{
     File dir;
@@ -29,5 +30,10 @@ public class TouchCommand implements Command{
 
 
         return dir;
+    }
+
+    @Override
+    public List<String> getOutput() throws IOException {
+        return List.of();
     }
 }

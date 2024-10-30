@@ -14,7 +14,8 @@ public class CatCommand implements Command{
         this.dir=dir;
         this.fileName=fileName;
     }
-    public List<String> Get_output(File dir, String fileName) throws IOException {
+    @Override
+    public List<String> getOutput() throws IOException {
         List<String> ret=new ArrayList<>();
         fileName=fileName.trim();
         int greater =fileName.indexOf(">");

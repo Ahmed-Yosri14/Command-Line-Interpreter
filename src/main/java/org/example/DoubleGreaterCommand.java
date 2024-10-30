@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class DoubleGreaterCommand implements Command {
 
@@ -72,5 +73,10 @@ public class DoubleGreaterCommand implements Command {
             }
         }
         return dir;
+    }
+
+    @Override
+    public List<String> getOutput() throws IOException {
+        return List.of();
     }
 }

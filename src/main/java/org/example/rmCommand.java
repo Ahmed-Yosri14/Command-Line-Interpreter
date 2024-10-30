@@ -2,6 +2,7 @@ package org.example;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class rmCommand implements Command{
     File dir,Targetfile;
@@ -29,5 +30,10 @@ public class rmCommand implements Command{
         else
             System.out.println("Delete is failed");
         return dir;
+    }
+
+    @Override
+    public List<String> getOutput() throws IOException {
+        return List.of();
     }
 }

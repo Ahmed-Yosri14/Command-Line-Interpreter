@@ -1,6 +1,8 @@
 package org.example;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 public class RmdirCommand implements Command{
     File dir;
@@ -23,5 +25,10 @@ public class RmdirCommand implements Command{
             System.out.println("Directory is not exist!" + remDir.getAbsolutePath());
         }
         return dir;
+    }
+
+    @Override
+    public List<String> getOutput() throws IOException {
+        return List.of();
     }
 }

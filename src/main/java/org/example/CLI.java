@@ -1,74 +1,70 @@
 package org.example;
 
 import java.io.*;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CLI {
     private File dir;
-
+    private List<String> previousOutput=new ArrayList<>() ;
     public CLI() {
         dir = new File(System.getProperty("user.dir"));
     }
 
-
     public void executeCommand(String input) throws IOException {
-        String[] parts = input.split(" ");
-        Command command = null;
+        String[] commands = input.split("\\|");
+
+
+        for (int i = 0; i < commands.length; i++) {
+            String commandString = commands[i].trim();
+            String[] parts = commandString.split(" ");
+            Command command = parseCommand(parts, i);
+
+            if (command == null) {
+                System.out.println("Invalid command: " + parts[0]);
+                return;
+            }
+
+            // Execute the command and get output
+            if (i < commands.length - 1) {
+                dir = command.execute(); // Update directory state for commands that modify it
+                previousOutput = command.getOutput(); // Get output for the next command
+            } else {
+                dir = command.execute(); // Final command execution
+
+            }
+        }
+    }
+
+    private Command parseCommand(String[] parts, int idx) {
         String commandName = parts[0].toLowerCase();
         switch (commandName) {
             case "cd":
-                if (parts.length==1){
-                    command= new PwdCommand(dir);
-                }
-                else command = new CdCommand(dir,parts);
-                break;
+                return parts.length == 1 ? new PwdCommand(dir) : new CdCommand(dir, parts);
             case "ls":
-                if ( parts.length == 1)
-                    command = new LsCommand(dir,false);
-                else if (parts[1].equalsIgnoreCase("-r")){
-                    command = new LsrCommand(dir);
-                }
-                else if (parts[1].equalsIgnoreCase("-a")){
-                    command = new LsCommand(dir,true);
-                }
-                break;
+                return parts.length == 1 ? new LsCommand(dir, false) :
+                        parts[1].equalsIgnoreCase("-r") ? new LsrCommand(dir) :
+                                parts[1].equalsIgnoreCase("-a") ? new LsCommand(dir, true) : null;
             case "touch":
-                command = new TouchCommand(dir,parts[1]);
+                return new TouchCommand(dir, parts[1]);
             case "pwd":
-                command = new PwdCommand(dir);
-                break;
+                return new PwdCommand(dir);
             case "mkdir":
-                command = new MkdirCommand(dir, parts);
-                break;
+                return new MkdirCommand(dir, parts);
             case "rmdir":
-                command = new RmdirCommand(dir, parts[1]);
-                break;
-
+                return new RmdirCommand(dir, parts[1]);
             case "cat":
-                command =new CatCommand(dir,input.substring(4));
-                break;
+                return new CatCommand(dir, parts[1]);
             case "more":
-                command = new MoreCommand(dir,parts);
-                break;
+                if (idx==0){
+                return new MoreCommand(dir, parts,false,this.previousOutput);}
+                else return new MoreCommand(dir,parts,true,this.previousOutput);
             case "mv":
-                command=new Mv(dir,parts[1],parts[2]);
-                break;
+                return new Mv(dir, parts[1], parts[2]);
             case "rm":
-                command=new rmCommand(dir,parts[1]);
-                break;
+                return new rmCommand(dir, parts[1]);
             default:
-                if (parts.length==1){
-                    command = new CdCommand(dir,parts);
-                }
-                else {
-                    System.out.println("Invalid command");
-                    return;
-                }
+                return null;
         }
-        assert command != null;
-        dir=command.execute();
     }
 }
-
