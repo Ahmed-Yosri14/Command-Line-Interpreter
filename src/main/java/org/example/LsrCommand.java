@@ -24,7 +24,7 @@ class LsrCommand implements Command{
                     if (file.isHidden())continue;
                     names.add(file.getName());
                 }
-                else names.add(file.getName());
+                else if (file.isHidden())names.add(file.getName());
             }
             Collections.sort(names, Collections.reverseOrder());
             for (String name : names){
@@ -41,9 +41,10 @@ class LsrCommand implements Command{
             int i = 0;
             for (File file : files){
                 if ( file.isFile()){
-                    names.add(file.getName()+ " [FILE]");
+                    if (file.isHidden())continue;
+                    names.add(file.getName());
                 }
-                else names.add(file.getName() + " [DIR]");
+                else if (!file.isHidden())names.add(file.getName());
             }
             Collections.sort(names, Collections.reverseOrder());
             for (String name : names){

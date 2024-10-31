@@ -12,13 +12,16 @@ class CdCommandTest {
 
     @Test
     void execute() throws IOException {
-        String input = "cd ..\\..\\Saved Games";
+        String input = "cd src";
+        String prev = "";
         File dir = new File(System.getProperty("user.dir"));
+        prev = dir.getAbsolutePath().trim();
         String [] parts = input.split(" ");
         Command cd = new CdCommand(dir,parts);
         dir= cd.execute();
         PwdCommand pwd = new PwdCommand(dir);
-        Assert.assertEquals("C:\\Users\\DELL\\Saved Games", pwd.getOutput().getFirst().trim());
+        String ans = pwd.getOutput().getFirst().trim();
+        Assert.assertEquals(prev+"\\"+"src", ans);
 
     }
 }
