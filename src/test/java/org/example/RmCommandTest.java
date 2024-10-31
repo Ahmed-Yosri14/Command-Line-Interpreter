@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RmCommandTest {
     @Test
     void Test1() throws IOException {
-        String input = "NewDirectory";
+        String input = "Rmtest";
         String[] parts = {"mkdir", input};
         File dir = new File(System.getProperty("user.dir"));
         Command c;
