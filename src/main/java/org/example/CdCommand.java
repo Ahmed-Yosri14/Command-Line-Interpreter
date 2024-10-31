@@ -8,50 +8,53 @@ import java.util.List;
 public class CdCommand implements Command {
     private File dir;
     String line="";
-    public CdCommand(File dir, String [] input) {
+    boolean flag = false;
+    public CdCommand(File dir, String [] input,boolean f, List<String> ls) {
         this.dir = dir;
-        if (!input[0].toLowerCase().equals("cd"))this.line+=input[0];
-        for (int i = 1; i < input.length; i++) {
-            this.line+=input[i];
-            this.line+=" ";
+        this.flag=f;
+        if (!this.flag){
+
+            if (!input[0].toLowerCase().equals("cd"))this.line+=input[0];
+            for (int i = 1; i < input.length; i++) {
+                this.line+=input[i];
+                this.line+=" ";
+            }
+        }
+        else {
+            for (int i = 0; i < ls.size(); i++) {
+                this.line+=ls.get(i);
+            }
         }
     }
 
+
     @Override
     public File execute() {
-        line.trim();
-        String path = "";
-        for (int i = 0; i < line.length(); i++){
-            path+=line.charAt(i);
-            if (line.charAt(i)=='\\'){
-                path =path.trim();
-                File next = new File(dir,path);
-                if (path.equals("..\\")){
-                    next=dir.getParentFile();
-                }
-                path="";
-                if (next.exists()&&next.isDirectory()){
-                    dir=next;
-                }
-                else {
-                    if (!next.exists()){
-                        System.out.println("Directory not found");
-                    }
-                    else System.out.println("Not a directory");
-                    return dir;
-                }
+        line = line.trim();
+        String[] parts = line.split("\\\\");
+
+        File targetDir = new File(line);
+        if (targetDir.isAbsolute()) {
+            if (targetDir.exists() && targetDir.isDirectory()) {
+                return targetDir;
+            } else {
+                System.out.println(targetDir.exists() ? "Not a directory" : "Directory not found");
+                return this.dir;
             }
         }
-        if (!path.isEmpty()) {
-            path = path.trim();
-            File next = new File(dir, path);
-            if (path.equals( "..")) {
-                next = dir.getParentFile();
-            }
-            if (next.exists() && next.isDirectory()) {
-                dir = next;
-            } else {
-                System.out.println("No such directory");
+        File dir = this.dir;
+
+        for (String part : parts) {
+            if (part.equals("..")) {
+                dir = dir.getParentFile();
+            } else if (!part.isEmpty()) {
+                File nextDir = new File(dir, part);
+                if (nextDir.exists() && nextDir.isDirectory()) {
+                    dir = nextDir;
+                } else {
+                    System.out.println(nextDir.exists() ? "Not a directory" : "Directory not found");
+                    return this.dir;
+                }
             }
         }
         return dir;

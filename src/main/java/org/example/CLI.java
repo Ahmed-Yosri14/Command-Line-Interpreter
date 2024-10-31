@@ -29,8 +29,8 @@ public class CLI {
                 dir = command.execute();
                 previousOutput = command.getOutput();
             } else {
-                dir = command.execute();
 
+                dir = command.execute();
             }
         }
     }
@@ -39,7 +39,10 @@ public class CLI {
         String commandName = parts[0].toLowerCase();
         switch (commandName) {
             case "cd":
-                return parts.length == 1 ? new PwdCommand(dir) : new CdCommand(dir, parts);
+                if (idx==0){
+                    return new CdCommand(dir, parts,false,this.previousOutput);
+                }
+                else return new CdCommand(dir,parts,true,this.previousOutput);
             case "ls":
                 return parts.length == 1 ? new LsCommand(dir, false) :
                         parts[1].equalsIgnoreCase("-r") ? new LsrCommand(dir) :

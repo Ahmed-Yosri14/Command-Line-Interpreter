@@ -21,7 +21,7 @@ class LsrCommandTest {
             comp+= s;
             comp+=" ";
         }
-        String out2 =  "to.txt " + "target " + "src " + "pom.xml " + "from.txt " + "c.txt " + "PP.txt " + "IdeaProjects " +
+        String out2 =  "to.txt " + "target " + "src " + "pom.xml " + "from.txt " + "c.txt "+"a.txt " + "PP.txt " + "IdeaProjects " +
                 "Command-Line-Interpreter " + "1.txt " + ".idea " + ".gitignore";
         Assert.assertEquals(comp.trim(),out2.trim());
     }

@@ -24,7 +24,7 @@ class HiddenLsCommandTest {
             comp+= s;
             comp+=" ";
         }
-        String out2 = ".git " + ".gitignore " + ".idea " + "1.txt " + "c.txt " + "Command-Line-Interpreter " +
+        String out2 = ".git " + ".gitignore " + ".idea " + "1.txt " +"a.txt " + "c.txt " + "Command-Line-Interpreter " +
                 "from.txt " + "IdeaProjects " + "pom.xml " + "PP.txt " + "src " + "target " + "to.txt ";
 
         Assert.assertEquals(comp.trim(),out2.trim());

@@ -36,7 +36,7 @@ public class mvCommandtest {
         dir = c.execute();
         Mv m=new Mv(dir,input,Target);
         dir=m.execute();
-        CdCommand c1=new CdCommand(dir,parts2);
+        CdCommand c1=new CdCommand(dir,parts2,false,new ArrayList<>());
         dir=c1.execute();
         LsCommand ls = new LsCommand(dir,false);
         List<String> out = ls.getOutput();

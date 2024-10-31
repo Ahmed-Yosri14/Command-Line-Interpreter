@@ -5,6 +5,7 @@ import org.testng.Assert;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +18,7 @@ class CdCommandTest {
         File dir = new File(System.getProperty("user.dir"));
         prev = dir.getAbsolutePath().trim();
         String [] parts = input.split(" ");
-        Command cd = new CdCommand(dir,parts);
+        Command cd = new CdCommand(dir,parts,false,new ArrayList<>());
         dir= cd.execute();
         PwdCommand pwd = new PwdCommand(dir);
         String ans = pwd.getOutput().getFirst().trim();
