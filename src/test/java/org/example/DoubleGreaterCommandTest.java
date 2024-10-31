@@ -15,7 +15,7 @@ public class DoubleGreaterCommandTest {
         File CurrentDir=new File(System.getProperty("user.dir"));
         String from= Files.readString(Paths.get("from.txt"));
         String to=Files.readString(Paths.get("to.txt"));
-        String temp=from+(from.length()!=0?'\n':"")+to;
+        String temp=to+from;
         CatCommand cmd=new CatCommand(CurrentDir,"from.txt>>to.txt");
 
         cmd.execute();
