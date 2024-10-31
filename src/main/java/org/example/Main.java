@@ -12,6 +12,7 @@ public class Main {
             System.out.print("> ");
             String input = scanner.nextLine();
             input =input.trim();
+            if (input.toLowerCase().equals("exit")) {return;}
             if (input.equals("..\\")){
                 input= "cd ..\\";
             }
