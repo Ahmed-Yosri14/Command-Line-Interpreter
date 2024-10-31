@@ -24,7 +24,7 @@ class LsrCommand implements Command{
                     if (file.isHidden())continue;
                     names.add(file.getName());
                 }
-                else if (file.isHidden())names.add(file.getName());
+                else if (!file.isHidden())names.add(file.getName());
             }
             Collections.sort(names, Collections.reverseOrder());
             for (String name : names){

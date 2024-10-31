@@ -1,26 +1,28 @@
 package org.example;
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 class LsrCommandTest {
     @Test
     void execute() throws IOException {
-        String input = "cd ..\\..\\Level 1";
-        String [] parts = input.split(" ");
         File dir = new File(System.getProperty("user.dir"));
-        Command cd = new CdCommand(dir,parts);
-        dir = cd.execute();
         LsrCommand lsr = new LsrCommand(dir);
+
         List<String> out = lsr.getOutput();
         String comp = "";
         for (String s : out){
             comp+= s;
             comp+=" ";
         }
-        assertEquals("Level 2",comp.trim());
+        String out2 =  "to.txt " + "target " + "src " + "pom.xml " + "from.txt " + "c.txt " + "PP.txt " + "IdeaProjects " +
+                "Command-Line-Interpreter " + "1.txt " + ".idea " + ".gitignore";
+        Assert.assertEquals(comp.trim(),out2.trim());
     }
 }
