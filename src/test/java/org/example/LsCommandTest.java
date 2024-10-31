@@ -1,6 +1,7 @@
 package org.example;
 
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +14,7 @@ class LsCommandTest {
 
     @Test
     void execute() throws IOException {
-        String input = "cd ..\\..\\Level 1";
-        String [] parts = input.split(" ");
         File dir = new File(System.getProperty("user.dir"));
-        Command cd = new CdCommand(dir,parts);
-        dir = cd.execute();
         LsCommand ls = new LsCommand(dir,false);
 
         List<String> out = ls.getOutput();
@@ -27,7 +24,10 @@ class LsCommandTest {
             comp+= s;
             comp+=" ";
         }
-        assertEquals("Level 2",comp.trim());
+        String out2 =  ".gitignore " + ".idea " + "1.txt " + "c.txt " + "Command-Line-Interpreter " +
+                "from.txt " + "IdeaProjects " + "pom.xml " + "PP.txt " + "src " + "target " + "to.txt ";
+
+        Assert.assertEquals(comp.trim(),out2.trim());
     }
 
 
