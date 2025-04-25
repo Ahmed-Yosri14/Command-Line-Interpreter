@@ -1,32 +1,30 @@
 package org.example;
 
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class HiddenLsCommandTest {
-
     @Test
-    void execute() throws IOException {
-        File dir = new File(System.getProperty("user.dir"));
-        LsCommand ls = new LsCommand(dir,true);
+    void testHiddenFilesListing(@TempDir Path tempDir) throws IOException {
+        Files.createFile(tempDir.resolve("visible.txt"));
+        Files.createFile(tempDir.resolve(".hidden"));
+        Files.createDirectory(tempDir.resolve(".hiddenDir"));
+
+        File dir = tempDir.toFile();
+        LsCommand ls = new LsCommand(dir, true); // show hidden
 
         List<String> out = ls.getOutput();
 
-        String comp = "";
-        for (String s : out){
-            comp+= s;
-            comp+=" ";
-        }
-        String out2 = ".git " + ".gitignore " + ".idea " + "1.txt " +"a.txt " + "c.txt " + "Command-Line-Interpreter " +
-                "from.txt " + "IdeaProjects " + "pom.xml " + "PP.txt " + "src " + "target " + "to.txt ";
-
-        Assert.assertEquals(comp.trim(),out2.trim());
+        assertTrue(out.contains("visible.txt"));
+        assertTrue(out.contains(".hidden"));
+        assertTrue(out.contains(".hiddenDir"));
     }
 }

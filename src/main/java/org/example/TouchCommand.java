@@ -1,34 +1,41 @@
 package org.example;
+
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
-public class TouchCommand implements Command{
+public class TouchCommand implements Command {
     File dir;
     String fileName;
-    TouchCommand(File dir,String fileName){
-        this.dir=dir;
-        this.fileName=fileName;
+
+    TouchCommand(File dir, String fileName) {
+        this.dir = dir;
+        this.fileName = fileName;
+    }
+
+    private Path resolvePath(String filename) {
+        if (Paths.get(filename).isAbsolute()) {
+            return Paths.get(filename);
+        }
+        return Paths.get(dir.getAbsolutePath(), filename);
     }
 
     @Override
     public File execute() throws IOException {
-
-           String absolutePath=dir.getPath()+'/'+fileName;
-            File newFile=new File(absolutePath);
+        Path filePath = resolvePath(fileName);
+        try {
+            Files.createFile(filePath);
+            System.out.println("File created at: " + filePath.toAbsolutePath());
+        } catch (IOException e) {
             try {
-                if (newFile.createNewFile()) {
-                    System.out.println("File created at: " + newFile.getAbsolutePath());
-                }
-                else {
-
-                }
+                Files.setLastModifiedTime(filePath, java.nio.file.attribute.FileTime.fromMillis(System.currentTimeMillis()));
+            } catch (IOException ex) {
+                System.out.println("Error touching file: " + ex.getMessage());
             }
-            catch(Exception e){
-
-            }
-
-
+        }
         return dir;
     }
 

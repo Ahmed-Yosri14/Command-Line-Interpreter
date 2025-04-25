@@ -1,28 +1,32 @@
 package org.example;
 
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CdCommandTest {
-
     @Test
-    void execute() throws IOException {
-        String input = "cd src";
-        String prev = "";
-        File dir = new File(System.getProperty("user.dir"));
-        prev = dir.getAbsolutePath().trim();
-        String [] parts = input.split(" ");
-        Command cd = new CdCommand(dir,parts,false,new ArrayList<>());
-        dir= cd.execute();
-        PwdCommand pwd = new PwdCommand(dir);
-        String ans = pwd.getOutput().getFirst().trim();
-        Assert.assertEquals(prev+"\\"+"src", ans);
+    void testCdCommand(@TempDir Path tempDir) throws IOException {
+        Path subDir = tempDir.resolve("testdir");
+        Files.createDirectory(subDir);
 
+        File originalDir = tempDir.toFile();
+        String[] parts = {"cd", "testdir"};
+
+        Command cd = new CdCommand(originalDir, parts, false, new ArrayList<>());
+        File newDir = cd.execute();
+        assertEquals(subDir.toFile(), newDir);
+
+        parts = new String[]{"cd", ".."};
+        cd = new CdCommand(newDir, parts, false, new ArrayList<>());
+        File parentDir = cd.execute();
+        assertEquals(originalDir, parentDir);
     }
 }

@@ -1,25 +1,36 @@
 package org.example;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
-class MkdirCommandTest {
 
+class MkdirCommandTest {
     @Test
-    void execute() throws IOException {// mkdir abdo
-        File dir = new File (System.getProperty("user.dir"));
-        String newDirectory = "NewDerectsoar/asds";
-        String[] input = {"mkdir",newDirectory };
-        Command mkdir = new MkdirCommand(dir , input);
-        dir = mkdir.execute();
-        Command ls = new LsCommand(dir,false);
-        List<String> lst =  ls.getOutput();
-        File newDir = new File(newDirectory);
-        assert(newDir.exists() && newDir.isDirectory());
+    void testMkdirCommand(@TempDir Path tempDir) throws IOException {
+        File currentDir = tempDir.toFile();
+        String newDirName = "newdir";
+        String[] input = {"mkdir", newDirName};
+
+        Command mkdir = new MkdirCommand(currentDir, input);
+        File newDir = mkdir.execute();
+
+        Path createdDir = tempDir.resolve(newDirName);
+        assertTrue(Files.exists(createdDir));
+        assertTrue(Files.isDirectory(createdDir));
+
+        String nestedDir = "parent/child";
+        input = new String[]{"mkdir", nestedDir};
+        mkdir = new MkdirCommand(currentDir, input);
+        newDir = mkdir.execute();
+
+        Path nestedPath = tempDir.resolve("parent/child");
+        assertTrue(Files.exists(nestedPath));
+        assertTrue(Files.isDirectory(nestedPath));
     }
 }

@@ -1,34 +1,31 @@
 package org.example;
 
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LsCommandTest {
-
     @Test
-    void execute() throws IOException {
-        File dir = new File(System.getProperty("user.dir"));
-        LsCommand ls = new LsCommand(dir,false);
+    void testLsCommand(@TempDir Path tempDir) throws IOException {
+        Files.createFile(tempDir.resolve("file1.txt"));
+        Files.createFile(tempDir.resolve("file2.txt"));
+        Files.createDirectory(tempDir.resolve("subdir"));
 
-        List<String> out = ls.getOutput();
+        File currentDir = tempDir.toFile();
+        LsCommand ls = new LsCommand(currentDir, false);
 
-        String comp = "";
-        for (String s : out){
-            comp+= s;
-            comp+=" ";
-        }
-        String out2 =  ".gitignore " + ".idea " + "1.txt "+"a.txt " + "c.txt " + "Command-Line-Interpreter " +
-                "from.txt " + "IdeaProjects " + "pom.xml " + "PP.txt " + "src " + "target " + "to.txt ";
+        List<String> output = ls.getOutput();
+        assertTrue(output.contains("file1.txt"));
+        assertTrue(output.contains("file2.txt"));
+        assertTrue(output.contains("subdir"));
 
-        Assert.assertEquals(comp.trim(),out2.trim());
+        ls.execute();
     }
-
-
 }
